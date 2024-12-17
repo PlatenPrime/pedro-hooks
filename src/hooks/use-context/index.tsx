@@ -1,11 +1,8 @@
-import { createContext, useState, useContext } from "react";
-
-
-
-export const GlobalStateContext = createContext<{ isToggle: boolean; setIsToggle: React.Dispatch<React.SetStateAction<boolean>>; }>({
-  isToggle: false,
-  setIsToggle: () => {}
-});
+import { useState } from "react";
+import { ChildDisplay } from "./ChildDisplay";
+import { ChildToggle } from "./ChildToggle";
+import FreeComponent from "./FreeComponent";
+import { GlobalStateContext } from "./context";
 
 export const ContextExample = () => {
   const [isToggle, setIsToggle] = useState(false);
@@ -17,26 +14,7 @@ export const ContextExample = () => {
         <ChildToggle />
         <ChildDisplay />
       </div>
+      <FreeComponent />
     </GlobalStateContext.Provider>
-  );
-};
-
-const ChildToggle = () => {
-  const { setIsToggle } = useContext(GlobalStateContext);
-  return (
-    <div>
-      <button onClick={() => setIsToggle((prev) => !prev)}>Toggle State</button>
-    </div>
-  );
-};
-
-// Child Component to Display State
-const ChildDisplay = () => {
-  const { isToggle } = useContext(GlobalStateContext);
-
-  return (
-    <div>
-      <p>Current State: {isToggle ? "ON" : "OFF"}</p>
-    </div>
   );
 };
